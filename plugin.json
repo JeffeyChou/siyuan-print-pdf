@@ -1,0 +1,45 @@
+{
+  "name": "siyuan-print-pdf",
+  "author": "JeffeyChou",
+  "url": "https://github.com/JeffeyChou/siyuan-print-pdf",
+  "version": "0.1.0",
+  "minAppVersion": "3.8.5",
+  "backends": [
+    "all"
+  ],
+  "frontends": [
+    "desktop",
+    "desktop-window",
+    "browser-desktop",
+    "browser-mobile"
+  ],
+  "disabledInPublish": true,
+  "displayName": {
+    "default": "Print to PDF",
+    "zh-CN": "PDF 导出"
+  },
+  "description": {
+    "default": "Export documents to PDF in the browser and Docker builds: the current rendering, or your own print CSS presets with font size and page settings.",
+    "zh-CN": "在浏览器端和 Docker 端把文档导出为 PDF：按当前渲染效果，或用自定义打印 CSS 预设（含字号、纸张等页面设置）。"
+  },
+  "readme": {
+    "default": "README.md",
+    "zh-CN": "README.zh-CN.md"
+  },
+  "icon": "icon.png",
+  "preview": "preview.png",
+  "funding": {
+    "custom": []
+  },
+  "keywords": [
+    "pdf",
+    "print",
+    "export",
+    "docker",
+    "browser",
+    "css",
+    "导出",
+    "打印",
+    "浏览器"
+  ]
+}
