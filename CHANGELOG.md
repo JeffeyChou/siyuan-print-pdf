@@ -7,3 +7,4 @@
 * Per-preset page settings: paper, orientation, margins, font size, theme mode, heading page breaks
 * Include subdocuments, keep folds, title image
 * Settings save automatically
+* The style editor's preview scales the page to fit the pane

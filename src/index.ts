@@ -622,6 +622,7 @@ Protyle.applyExportHeadingPageBreaks(previewElement, ${JSON.stringify(page.headi
         const c = this.conf;
         let current = this.preset();
         let doc: ExportDoc = null;
+        let resizeObserver: ResizeObserver = null;
 
         const dialog = new Dialog({
             title: t.editPresets,
@@ -657,6 +658,7 @@ Protyle.applyExportHeadingPageBreaks(previewElement, ${JSON.stringify(page.headi
 </div>`,
             destroyCallback: () => {
                 this.openDialogs--;
+                resizeObserver?.disconnect();
                 c.presets.forEach((p) => (p.name = p.name.trim() || t.untitled));
                 this.saveNow();
                 onClose?.();
@@ -690,7 +692,12 @@ Protyle.applyExportHeadingPageBreaks(previewElement, ${JSON.stringify(page.headi
                 if (seq !== renderSeq) {
                     return;
                 }
-                frame.onload = () => seq === renderSeq && loading.classList.add("fn__none");
+                frame.onload = () => {
+                    fit();
+                    if (seq === renderSeq) {
+                        loading.classList.add("fn__none");
+                    }
+                };
                 frame.srcdoc = html;
             } catch (e) {
                 loading.textContent = `${t.failed}: ${errText(e)}`;
@@ -707,7 +714,21 @@ Protyle.applyExportHeadingPageBreaks(previewElement, ${JSON.stringify(page.headi
             d.getElementById("print-pdf-font").textContent = this.fontCss(current.page);
             d.getElementById("print-pdf-page").textContent = this.pageCss(current.page) + "\n" +
                 this.previewCss(current.page);
+            fit();
         };
+        // Scale the sheet down when the pane is narrower than the paper, so the
+        // whole page width stays visible.
+        const fit = () => {
+            const d = frame.contentDocument;
+            if (!d?.documentElement) {
+                return;
+            }
+            const [w, h] = PAPER_MM[current.page.paper] || PAPER_MM.A4;
+            const sheetPx = ((current.page.landscape ? h : w) * 96) / 25.4 + 32;
+            d.documentElement.style.zoom = String(Math.min(1, frame.clientWidth / sheetPx));
+        };
+        resizeObserver = new ResizeObserver(fit);
+        resizeObserver.observe(frame);
         const select = (p: Preset) => {
             current = p;
             c.presetId = p.id;
