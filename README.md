@@ -2,6 +2,8 @@
 
 # Print to PDF
 
+<img src="preview.png" width="600" alt="Style editor with live print preview">
+
 SiYuan's desktop browser and Docker builds have no PDF export: the native item only works in the desktop app and the mobile apps. This plugin adds it. The kernel renders the whole document (long documents are not cut off by the editor's lazy loading), the plugin lays it out with the same template as SiYuan's own export, and the browser's print dialog saves it with **Save as PDF**.
 
 ## Usage
